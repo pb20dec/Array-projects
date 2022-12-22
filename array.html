@@ -11,6 +11,11 @@
 <body>
 
     <script>
+        function assert(expected, actual, msg) {
+            if (expected !== actual) {
+                console.error(`Expected ${expected} but found ${actual} ::: ${msg}`);
+            }
+        }
 
         function without(arr, args) {
             let argsMatch = [];
@@ -29,8 +34,80 @@
             return argsMatch;
         }
 
+        function isEqual(arr1, arr2) {
+            if (arr1.length !== arr2.length) {
+                return false;
+            }
 
+            for (let i = 0; i < arr1.length; i++) {
+                if (arr1[i] !== arr2[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
 
+        (function () {
+            console.log("Excuting test cases for isEqual");
+            const testCases = [
+                {
+                    name: "When both arrays are equal",
+                    left: [1, 2, 3],
+                    right: [1, 2, 3],
+                    expected: true
+                },
+                {
+                    name: "When both arrays are  not equal",
+                    left: [1, 2, 3],
+                    right: [1, 2, 5],
+                    expected: false
+                },
+                {
+                    name: "When both arrays length is  not equal",
+                    left: [1, 2, 3],
+                    right: [1, 2, 3, 5],
+                    expected: false
+                },
+                {
+                    name: "When both arrays are empty",
+                    left: [],
+                    right: [],
+                    expected: true
+                }
+            ];
+            for (let i = 0; i < testCases.length; i++) {
+                let testCase = testCases[i];
+                let actual = isEqual(testCase.left, testCase.right);
+                assert(testCase.expected, actual, testCase.name);
+            }
+
+        })();
+
+        function existsInArray(arr,n){
+            for (let i = 0 ; i < arr.length;i++){
+                if(n == arr[i]){
+                    return true;
+                }
+            }
+            return false;
+        }
+          
+         
+        function unique(arr) {
+            let uniqueValues = [];
+            for (let i = 0; i < arr.length; i++) {
+               let item = arr[i];
+               let found = existsInArray(uniqueValues,item)
+                    if (!found) {
+                         uniqueValues.push(arr[i]);
+                    }
+
+                
+               
+
+            }
+            return uniqueValues;
+        }
 
 
 
